@@ -1,1 +1,15 @@
 *.bak
+.gsd-keyboard.settings-ported
+dconf/
+evolution/
+gnome-initial-setup-done
+google-chrome/
+gtk-3.0/
+ibus/
+mimeapps.list
+mozilla/
+org.gnome.Ptyxis/
+pulse/
+user-dirs.dirs
+user-dirs.locale
+

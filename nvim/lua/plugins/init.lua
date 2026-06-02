@@ -182,6 +182,8 @@ require("lazy").setup({
     {
         "nvim-lualine/lualine.nvim",
         config = function()
+          local battery_percentage = nil 
+
           require('lualine').setup({
             options = {
               icons_enabled = false,
@@ -194,8 +196,44 @@ require("lazy").setup({
               lualine_b = {'branch', 'diff', 'diagnostics'},
               lualine_c = {'filename'},
               lualine_x = {'encoding', 'fileformat', 'filetype'},
-              lualine_y = {'progress'},
-              lualine_z = {'location'}
+              lualine_y = {{
+                        -- update read battery_percentage
+                        function()
+                            local handle = io.popen("cat /sys/class/power_supply/BAT0/capacity 2>/dev/null")
+                            if not handle then
+                                return "NO BAT"
+                            end
+
+                            local capacity = handle:read("*a"):gsub("%s+", "")
+                            handle:close()
+
+                            battery_percentage = tonumber(capacity)
+                            return battery_percentage 
+                        end,
+
+                        -- read battery_percentage
+                        color = function()
+                            if not battery_percentage then
+                                return {fg = "#ffffff", bg = "#b8bb26"}
+                            end
+                            
+                            if battery_percentage < 30 then
+                                return {fg = "#1d2021", bg = "#fb4934"}
+                            elseif battery_percentage < 36 then
+                                return {fg = "#1d2021", bg = "#fe8019"}
+                            elseif battery_percentage > 96 then
+                                return {fg = "#1d2021", bg = "#fb4934"}
+                            end
+
+                            return nil
+                        end
+
+                    }},
+              lualine_z = {
+                        function()
+                            return os.date("%H:%M")
+                        end
+                    }
             },
           })
         end,
