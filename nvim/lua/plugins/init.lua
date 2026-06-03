@@ -197,7 +197,7 @@ require("lazy").setup({
               lualine_c = {'filename'},
               lualine_x = {'encoding', 'fileformat', 'filetype'},
               lualine_y = {{
-                        -- update read battery_percentage
+                        -- update battery_percentage
                         function()
                             local handle = io.popen("cat /sys/class/power_supply/BAT0/capacity 2>/dev/null")
                             if not handle then
