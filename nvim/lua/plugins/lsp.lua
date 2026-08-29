@@ -17,7 +17,7 @@ return {
     dependencies = { "williamboman/mason.nvim" },
     config = function()
       require("mason-lspconfig").setup({
-        ensure_installed = { "rust_analyzer" },
+        ensure_installed = { "rust_analyzer", "gopls" },
         automatic_installation = true,
       })
     end,
