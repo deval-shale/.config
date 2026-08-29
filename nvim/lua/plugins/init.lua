@@ -82,7 +82,7 @@ require("lazy").setup({
         config = function()
           require("nvim-treesitter.configs").setup({
             -- Install parsers for these languages
-            ensure_installed = { "rust", "lua", "toml", "json", "markdown", "javascript", "typescript" },
+            ensure_installed = { "rust", "go", "lua", "toml", "json", "markdown", "javascript", "typescript" },
             
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
