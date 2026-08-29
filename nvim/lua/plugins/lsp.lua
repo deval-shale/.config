@@ -43,11 +43,34 @@ return {
         capabilities = capabilities,
       })
 
+      -- Configure gopls 
+      vim.lsp.config('gopls', {
+        cmd = { 'gopls' },
+        root_markers = { 'go.work', 'go.mod' },
+        capabilities = capabilities,
+        settings = {
+            gopls = {
+                gofumpt = true,
+                usePlaceholders = true,
+                completeUnimported = true,
+            }
+        }
+      })
+
+
       -- Enable rust-analyzer when opening Rust files
       vim.api.nvim_create_autocmd('FileType', {
         pattern = 'rust',
         callback = function()
           vim.lsp.enable('rust_analyzer')
+        end,
+      })
+
+       -- Enable Gopls when opening Go files
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'go',
+        callback = function()
+          vim.lsp.enable('gopls')
         end,
       })
 
